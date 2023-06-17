@@ -7,7 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  constructor(private http: HttpClient,@Inject('BASE_URL') private baseUrl: string) { }
+
+  constructor(private http: HttpClient,
+    @Inject('BASE_URL') public baseUrl: string) { }
 
   create(data:any, url: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/${url}`, data, { responseType: 'text' });
@@ -16,16 +18,18 @@ export class ApiService {
   getList(
     url: string
   ): Observable<any> {
+    console.log()
     return this.http.get<any>(
-      `${this.baseUrl}/${url}`
+      `${this.baseUrl}api/${url}`
     );
+   
   }
 
   postData(data:any, url: string, headers:any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/${url}`, data, { headers });
+    return this.http.post(`${this.baseUrl}api/${url}`, data, { headers });
   }
   delete(url: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${url}`);
+    return this.http.delete(`${this.baseUrl}api/${url}`);
   }
 }
 

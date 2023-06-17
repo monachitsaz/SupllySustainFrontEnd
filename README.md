@@ -10,9 +10,8 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 ## For using in the integrated app
 ```
 git clone https://github.com/monachitsaz/SupllySustainFrontEnd
-
 ```
-change the folder name as **ClientApp**. Then paste it in the main project that get by the following link:
+change the folder name as **ClientApp**. Then paste it into the main project (that get by the following link) instead of the folder of ClientApp:
 
 ```
 git clone https://github.com/monachitsaz/SupplySustain-test

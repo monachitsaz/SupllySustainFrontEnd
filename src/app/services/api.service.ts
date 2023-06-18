@@ -18,18 +18,18 @@ export class ApiService {
   getList(
     url: string
   ): Observable<any> {
-    console.log()
+   
     return this.http.get<any>(
-      `${this.baseUrl}api/${url}`
+      `${this.baseUrl}${url}`
     );
    
   }
-
-  postData(data:any, url: string, headers:any): Observable<any> {
-    return this.http.post(`${this.baseUrl}api/${url}`, data, { headers });
+  postData(data:any, url: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}${url}`, data);
   }
+
   delete(url: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}api/${url}`);
+    return this.http.delete(`${this.baseUrl}${url}`);
   }
 }
 

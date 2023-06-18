@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -8,35 +9,33 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
+
   formGroup: FormGroup
   products:Product[]
+  displayedColumns: string[] = ['Name', 'Description'];
+
   constructor(private api: ApiService) { }
 
-    displayedColumns: string[] = ['Name', 'Description'];
 
 ngOnInit(): void {
   this.getList();
   this.formGroup = new FormGroup({
     id: new FormControl(0),
-    name: new FormControl(''),
+    name: new FormControl('',Validators.required),
     description: new FormControl('')
 
   })
 }
 submitForm() {
   if (this.formGroup.valid) {
-  debugger
-    let infoData = this.formGroup.value;
-    this.api.create(infoData, 'Product')
-      .subscribe((response) => {
-        alert(response);
-        this.getList();
-      })
-    this.formGroup.reset();
-  }
 
-  else {
-    alert('The data is not valid')
+    let infoData = this.formGroup.value;
+    this.api.postData(infoData, 'api/Product')
+      .subscribe((response) => {
+       alert(response);
+        this.getList();
+        this.formGroup.reset();
+      })
   }
 
 }
@@ -49,17 +48,17 @@ cancel() {
 
 
 getList() {
-  this.api.getList('Product').subscribe(response => {
-    debugger
+  this.api.getList('api/Product').subscribe(response => {
     this.products = response
-    alert( this.products)
+
   })
+
 }
 
 
 deletRow(id) {
   if (confirm("are you sure?")) {
-    this.api.delete(`Product/${id}`).subscribe(a => {
+    this.api.delete(`api/Product/${id}`).subscribe(a => {
       this.getList();
       alert(a);
     })

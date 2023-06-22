@@ -20,7 +20,7 @@ export class ProductFormComponent implements OnInit {
 ngOnInit(): void {
   this.getList();
   this.formGroup = new FormGroup({
-    id: new FormControl(0),
+    id: new FormControl(),
     name: new FormControl('',Validators.required),
     description: new FormControl('')
 
@@ -30,11 +30,13 @@ submitForm() {
   if (this.formGroup.valid) {
 
     let infoData = this.formGroup.value;
+    infoData.id=0;
     this.api.postData(infoData, 'api/Product')
       .subscribe((response) => {
-       alert(response);
+ 
         this.getList();
         this.formGroup.reset();
+        alert(response);
       })
   }
 
